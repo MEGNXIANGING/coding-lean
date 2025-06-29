@@ -1,0 +1,62 @@
+package sort;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class CountOfSmallerNumbersAfter {
+    public static void main(String[] args) {
+        int[] nums ={5,2,6,1};
+        for (Integer integer : countSmaller(nums)) {
+            System.out.println(integer);
+        }
+
+    }
+    public static List<Integer> countSmaller(int[] nums) {
+        List<Integer> res= new ArrayList<>();
+        int le=nums.length;
+        int[] temp=new int[le];
+        int[] index=new int[le];
+        for(int i=0;i<le;i++){
+            index[i]=i;
+        }
+        int[] ans=new int[le];
+        mrSort(nums,0,le-1,temp,index,ans);
+        for (int a = 0; a <le ; a++) {
+            res.add(ans[a]);
+        }
+        return res;
+    }
+    private static void mrSort(int[]nums,int left,int right,int[]temp,int[]index,int[]ans){
+        if (left>=right){
+            return;
+        }
+        int mid=left+(right-left)/2;
+        mrSort(nums,left,mid,temp,index,ans);
+        mrSort(nums,mid+1,right,temp,index,ans);
+        mrNums(nums,left,right,mid,temp,index,ans);
+    }
+
+    private static void mrNums(int[] nums, int left, int right,int mid, int[] temp, int[] index, int[] ans) {
+        for (int i = left; i <right ; i++) {
+            temp[i]=index[i];
+        }
+        int i=left;
+        int j=mid+1;
+        int k=0;
+        while (i<=mid && j<=right){
+            if (nums[temp[i]]<=nums[temp[j]]){
+                index[k++]=temp[i++];
+            }else {
+                index[k++]=temp[j++];
+                ans[index[k]]=j-mid+1;
+            }
+        }
+        while (i<=mid){
+            index[k++]=temp[i++];
+        }
+        while (j<=right){
+            index[k++]=temp[j++];
+            ans[index[k]]=j-mid+1;
+        }
+    }
+}

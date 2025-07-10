@@ -3,12 +3,12 @@ package dp;
 public class IntegerBreak {
 
     public int integerBreak(int n) {
-        int[] dp = new int[n+1];
+        int[] dp = new int[n + 1];
         dp[2] = 1;
 
         for (int i = 2; i <= n; i++) {
-            for (int j = 0; j <= i-j; j++) {
-                dp[i]=Math.max(dp[i],Math.max(j*(i-j),dp[i-j]*j));
+            for (int j = 0; j <= i - j; j++) {
+                dp[i] = Math.max(dp[i], Math.max(j * (i - j), dp[i - j] * j));
             }
         }
         return dp[n];
@@ -17,6 +17,7 @@ public class IntegerBreak {
     public static void main(String[] args) {
         integerBreak2(6);
     }
+
     public static int integerBreak2(int n) {
         int[] dp = new int[n + 1];
         dp[2] = 1;
@@ -37,5 +38,19 @@ public class IntegerBreak {
         }
         return dp[n];
     }
+
+
+    public int integerBreak3(int n) {
+        int[] f = new int[n + 1];
+        f[2] = 1;
+        for (int i = 2; i <= n; i++) {
+            for (int j = 0; j <= i - j; j++) {
+                //与f[i]本身对比是因为需要判断f[i]前一列的值和当前列的值比较
+                f[i] = Math.max(f[i], Math.max(j * (i - j), j * f[i - j]));
+            }
+        }
+        return f[n];
+    }
+
 }
 

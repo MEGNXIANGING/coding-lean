@@ -40,7 +40,7 @@ public class ThreeSum2 {
         if (left >= right) {
             return;
         }
-     
+
         int randomPivotIndex = left + new Random().nextInt(right - left + 1);
         swap(nums, left, randomPivotIndex);
         int pre = nums[left];

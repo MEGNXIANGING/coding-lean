@@ -31,6 +31,17 @@ public class ReverseList {
         }
         return pre;
     }
+    public ListNode reverseLis2t(ListNode head) {
+        ListNode pre=null;
+        ListNode cul=head;
+        while(cul!=null){
+            ListNode next=cul.next;
+            cul.next=pre;
+            pre=cul;
+            cul=next;
+        }
+        return pre;
+    }
     public class ListNode {
         int val;
         ListNode next;
